@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* Compact Button Style */
+        .chatbot-btn {
+            background-color: pink;  /* Pink background color */
+            color: white;  /* White text color */
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+            
+        .chatbot-btn:hover {
+            background-color: #ff66b2; /* Darker pink on hover */
+        }
+        .weather-btn {
+            background-color: #4CAF50;  /* Green background */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+            margin: 10px 0;
+            text-decoration: none;
+            }
+    
+        .weather-btn:hover {
+            background-color: #45a049; /* Darker green on hover */
+    
+        }
+
+       
+    </style>
+</head>
+<body>
+    <h1>Welcome to your Dashboard, {{ username }}!</h1>
+
+    <a href="{{ url_for('view_closet') }}">
+        <button>View Closet</button>
+    </a>
+    <a href="{{ url_for('logout') }}">
+        <button>Logout</button>
+    </a>
+
+    <!-- Chat to Porunga Button -->
+    <a href="{{ url_for('chatbot_page') }}" class="chatbot-btn">Chat to Porunga</a>
+    <!-- Button for Weather-Based Clothing Suggestions -->
+    <a href="{{ url_for('weather_suggestions') }}">
+        <button>Weather-Based Suggestions</button> 
+    </a>
+    
+
+    <hr>
+    <h2>Items in Your Wardrobe</h2>
+
+    {% if wardrobe_items %}
+        <div class="grid-container">
+            {% for item in wardrobe_items %}
+                <div class="grid-item">
+                    <img src="{{ item.image_url }}" alt="{{ item.name }}">
+                    <div class="item-details">
+                        <h3>{{ item.name }}</h3>
+                        <p>Price: Tk {{ item.price }}</p>
+                        <p>Quantity: {{ item.quantity }}</p>
+                        <p>Total: Tk {{ item.price * item.quantity }}</p>
+                        <p>Size: {{ item.size | capitalize }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You have no items in your wardrobe yet.</p>
+    {% endif %}
+</body>
+</html>
