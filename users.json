@@ -1,0 +1,47 @@
+[
+    {
+        "username": "abc",
+        "email": "abc@gmail.com",
+        "password": "123"
+    },
+    {
+        "username": "riba",
+        "email": "riba@gmail.com",
+        "password": "123"
+    },
+    {
+        "username": "rashford",
+        "email": "rashford@gmail.com",
+        "password": "1234"
+    },
+    {
+        "username": "Tariq",
+        "email": "tariq@gmail.com",
+        "password": "1234"
+    },
+    {
+        "username": "Prottoy Saha",
+        "email": "prottoy@gmail.com",
+        "password": "1234"
+    },
+    {
+        "username": "Son Goku",
+        "email": "kakarot@gmail.com",
+        "password": "1234"
+    },
+    {
+        "username": "Sawon Paul",
+        "email": "sawon@gmail.com",
+        "password": "1234"
+    },
+    {
+        "username": "Mainul Pantho",
+        "email": "sharthopor@gmail.com",
+        "password": "1234"
+    },
+    {
+        "username": "Angana Saha",
+        "email": "angana@gmail.com",
+        "password": "1234"
+    }
+]
