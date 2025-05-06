@@ -37,8 +37,30 @@
                     <img src="{{ item.image_url }}" alt="{{ item.name }}">
                     <div class="item-details">
                         <h3>{{ item.name }}</h3>
-                        <p>Price: Tk {{ item.price }} x {{ item.quantity }}</p>
-                        <p>Total: Tk {{ item.price * item.quantity }}</p>
+                        
+                        <!-- Display original price (crossed out) and discounted price -->
+                        <p>
+                            {% if item.updated_price and item.updated_price != item.price %}
+                                <span style="text-decoration: line-through; color: red;">Tk {{ item.price }}</span> 
+                                Tk {{ item.updated_price }} 
+                                <small>({{ ((item.price - item.updated_price) / item.price * 100)|round(2) }}% off)</small>
+                            {% else %}
+                                Tk {{ item.price }} 
+                            {% endif %}
+                        </p>
+
+                        <p>
+                            Tk 
+                            {% if item.updated_price and item.updated_price != item.price %}
+                                {{ item.updated_price }} * {{ item.quantity }} = 
+                                Total: Tk {{ item.updated_price * item.quantity }}
+                            {% else %}
+                                {{ item.price }} * {{ item.quantity }} = 
+                                Total: Tk {{ item.price * item.quantity }}
+                            {% endif %}
+                        </p>
+                        
+
                         <p>Size: {{ item.size | capitalize }}</p>
 
                         <!-- Use POST method for removing an item from the cart -->
@@ -75,15 +97,11 @@
     <!-- Rest of the content -->
 
     <!-- Add Payment Button -->
-    <!-- Add Payment Button -->
-    <!-- Add Payment Button -->
     <div class="payment-container" style="text-align: center; margin-top: 20px;">
         <form action="{{ url_for('confirm_payment') }}" method="POST">
             <button type="submit" class="btn">Confirm Payment</button> 
         </form>
     </div>
-
-
 
     <!-- Success Message Pop-up -->
     <div id="payment-success-message" class="payment-success-message" style="display: none;">
@@ -102,9 +120,6 @@
             }, 3000);
         };
     </script>
-
-    <!-- End of the page content -->
-
 
 </body>
 

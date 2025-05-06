@@ -56,6 +56,11 @@
     <a href="{{ url_for('weather_suggestions') }}">
         <button>Weather-Based Suggestions</button> 
     </a>
+    <!-- Button for Feedback Submission -->
+    <a href="{{ url_for('submit_feedback') }}">
+       <button>Submit Feedback</button>
+    </a>
+
     
 
     <hr>
@@ -68,9 +73,11 @@
                     <img src="{{ item.image_url }}" alt="{{ item.name }}">
                     <div class="item-details">
                         <h3>{{ item.name }}</h3>
-                        <p>Price: Tk {{ item.price }}</p>
+                        <p>Price: Tk {% if item.updated_price %}{{ item.updated_price }}{% else %}{{ item.price }}{% endif %}</p>
+
                         <p>Quantity: {{ item.quantity }}</p>
-                        <p>Total: Tk {{ item.price * item.quantity }}</p>
+                        <p>Total: Tk {{ item.quantity * (item.updated_price if item.updated_price else item.price) }}</p>
+
                         <p>Size: {{ item.size | capitalize }}</p>
                     </div>
                 </div>

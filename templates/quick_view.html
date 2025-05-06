@@ -89,7 +89,18 @@
         <span class="close" onclick="closeModal()">&times;</span>
         <h2>{{ item.name }}</h2>
         <img src="{{ item.image_url }}" alt="{{ item.name }}">
-        <p>Price: Tk {{ item.price }}</p>
+
+        <!-- Price Display with Discount Logic -->
+        <p>
+            {% if item.updated_price and item.updated_price != item.price %}
+                <span style="text-decoration: line-through; color: red;">Tk {{ item.price }}</span> 
+                Tk {{ item.updated_price }} 
+                <small>({{ ((item.price - item.updated_price) / item.price * 100)|round(2) }}% off)</small>
+            {% else %}
+                Tk {{ item.price }} 
+            {% endif %}
+        </p>
+
         <p>Category: {{ item.category }}</p>
         <p>Color: {{ item.color }}</p>
 

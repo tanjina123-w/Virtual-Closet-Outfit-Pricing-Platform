@@ -156,7 +156,7 @@
                 {% if request.args.get('category') is none or item['category'] == request.args.get('category') %}
                     <div class="grid-item">
                         <img src="{{ item.image_url }}" alt="{{ item.name }}">
-                        
+
                         <!-- Quick View Button -->
                         <div class="quick-view-button">
                             <a href="{{ url_for('quick_view', item_name=item.name) }}">Quick View</a>
@@ -166,8 +166,20 @@
                             <h3>{{ item.name }}</h3>
                             <p>Category: {{ item.category }}</p>
                             <p>Color: {{ item.color }}</p>
-                            <p>Price: Tk {{ item.price }}</p>
-                            <p>Size: {{ item.size | capitalize }}</p>
+
+                            <!-- Updated Price and Original Price -->
+                            <p>
+                                {% if item.updated_price and item.updated_price != item.price %}
+                                    <span style="text-decoration: line-through; color: red;">Tk {{ item.price }}</span> <!-- Original price -->
+                                    <br>
+                                    Tk {{ item.updated_price }} <!-- Discounted price -->
+                                    <small>({{ ((1 - item.updated_price / item.price) * 100)|round(2) }}% off)</small> <!-- Discount percentage -->
+                                {% else %}
+                                    Tk {{ item.price }} <!-- Original price if no discount -->
+                                {% endif %}
+                            </p>
+                            
+                            
 
                             <form action="{{ url_for('add_to_cart', item_name=item.name | urlencode) }}" method="POST">
                                 <input type="number" name="quantity" value="1" min="1" style="width: 50px;">
